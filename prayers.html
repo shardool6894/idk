@@ -15,11 +15,11 @@
 
     <header>
         <div class="header-title">RAM BHAKT MANDAL</div>
-        
+
         <!-- Desktop Navigation -->
         <nav class="desktop-nav">
             <ul>
-                <li><a href="home.html" class="active navigation-link">Home</a></li>
+                <li><a href="index.html" class="active navigation-link">Home</a></li>
                 <li><a href="about.html" class="navigation-link">About</a></li>
                 <li><a href="gallery.html" class="navigation-link">Gallery</a></li>
                 <li><a href="prayers.html" class="navigation-link">Prayers</a></li>
@@ -38,12 +38,12 @@
     </header>
 
     <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
-    
+
     <!-- Mobile Sidebar -->
     <nav class="sidebar" id="sidebar">
         <button class="close-btn" onclick="toggleMenu()">&times;</button>
         <ul>
-            <li><a href="home.html" class="navigation-link">Home</a></li>
+            <li><a href="index.html" class="navigation-link">Home</a></li>
             <li><a href="about.html" class="navigation-link">About</a></li>
             <li><a href="gallery.html" class="navigation-link">Gallery & Media</a></li>
             <li><a href="prayers.html" class="navigation-link">Prayers</a></li>
@@ -55,7 +55,18 @@
     </nav>
 
     <main id="content-area">
-        </main>
+        <section class="grid-container">
+            <a href="events.html" id="events" class="side-card navigation-link card-events">
+                <div class="events-content">
+                    <h3>UPCOMING<br>EVENTS</h3>
+                    <!-- <div class="events-desc">
+                        <p><strong>Maha Aarti</strong> - Every Sunday<br>amet, consectetur<br>adipiscing elit, sed a...</p>
+                        <p><strong>Satsang</strong> - Tuesday Evening<br>amet, consectetur</p>
+                    </div> -->
+                </div>
+            </a>
+        </section>
+    </main>
 
     <script src="home.js"></script>
 </body>
