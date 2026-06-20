@@ -19,38 +19,40 @@ function toggleMenu() {
 const links = document.querySelectorAll('.navigation-link');
 const contentArea = document.getElementById('content-area');
 
+async function navigateTo(targetUrl) {
+    try {
+        const response = await fetch(targetUrl);
+        const newHtmlContent = await response.text();
+        const parser = new DOMParser();
+        const tempDoc = parser.parseFromString(newHtmlContent, 'text/html');
+        const contentToBeReplaced = tempDoc.getElementById('content-area').innerHTML
+        contentArea.innerHTML = contentToBeReplaced;
+        loadLoadCalendar()
+    }
+    catch (err) {
+        console.log(`error : ${err}`)
+    }
+}
+
 links.forEach(link => {
     link.addEventListener('click', async function (event) {
         try {
             event.preventDefault();
             const targetUrl = this.getAttribute('href');
-
-            const response = await fetch(targetUrl);
-            const newHtmlContent = await response.text();
-            const parser = new DOMParser();
-            const tempDoc = parser.parseFromString(newHtmlContent, 'text/html');
-            const contentToBeReplaced = tempDoc.getElementById('content-area').innerHTML
-            contentArea.innerHTML = contentToBeReplaced;
-
             window.history.pushState(null, '', targetUrl);
-            loadLoadCalendar()
+            await navigateTo(targetUrl)
             // Listen for the user clicking the Back or Forward buttons
-            window.addEventListener('popstate', async function () {
-                const targetUrl = window.location.pathname;
-                const response = await fetch(targetUrl);
-                const oldHtmlContent = await response.text();
-                const parser = new DOMParser();
-                const tempDoc = parser.parseFromString(oldHtmlContent, 'text/html');
-                const contentToBeReplaced = tempDoc.getElementById('content-area').innerHTML
-                document.getElementById('content-area').innerHTML = contentToBeReplaced;
-                loadLoadCalendar;
-            });
         }
         catch (err) {
             console.log(`error : ${err}`)
         }
     });
 });
+
+window.addEventListener('popstate', async function () {
+    const targetUrl = window.location.pathname;
+    await navigateTo(targetUrl)
+})
 
 //schedule
 // --- MODAL FUNCTIONS ---
@@ -104,14 +106,14 @@ function loadLoadCalendar() {
         }
 
         const yearSelect = document.getElementById("yearSelect");
-
-        for (let year = 1900; year <= 2100; year++) {
+        yearSelect.innerHTML = ''
+        for (let year = 2024; year <= 2100; year++) {
             const option = document.createElement("option");
             option.value = year;
             option.textContent = year;
             yearSelect.appendChild(option);
         }
-        
+
         const date = new Date();
         const month = (date.getMonth() + 1);
         const year = date.getFullYear();
@@ -171,10 +173,150 @@ function loadLoadCalendar() {
             }
             calendarGrid.innerHTML += daysHtml;
         }
-
+        calendarChooseMonth.removeEventListener('change', loadCalendar);
+        calendarChooseYear.removeEventListener('change', loadCalendar);
         calendarChooseMonth.addEventListener('change', loadCalendar);
         calendarChooseYear.addEventListener('change', loadCalendar);
         loadCalendar();
     }
 }
 loadLoadCalendar();
+//for receiving form data
+const suggestionsForm = document.querySelector('.suggestionsForm')
+if (suggestionsForm) {
+    suggestionsForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const suggestion = document.getElementById('suggestionInput').value;
+        const submitData = {
+            suggestion: suggestion
+        };
+        try {
+            await fetch('/api/suggestions', {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(submitData)
+            })
+            document.getElementById('suggestionInput').value = ''
+        }
+        catch (err) {
+            console.log(`error:${err}`)
+        }
+    })
+
+}
+const questionForm = document.querySelector('.questionForm')
+if (questionForm) {
+    questionForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const question = document.getElementById('questionInput').value;
+        const submitData = {
+            question: question
+        };
+        try {
+            await fetch('/api/questions', {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(submitData)
+            })
+            document.getElementById('questionInput').value = ''
+        }
+        catch (err) {
+            console.log(`error : ${err}`)
+        }
+    })
+}
+
+/* --- AUTHENTICATION (LOGIN/REGISTER) BACKEND LOGIC --- */
+
+document.addEventListener('DOMContentLoaded', () => {
+    const authForm = document.querySelector('.auth-form');
+
+    if (authForm) {
+        authForm.addEventListener('submit', async function (e) {
+            e.preventDefault(); // Stop standard HTML form submission
+
+            // Grab the values
+            const email = document.getElementById('email')?.value;
+            const password = document.getElementById('password')?.value;
+            const confirmPassword = document.getElementById('confirm-password')?.value;
+
+            const submitBtn = this.querySelector('.auth-btn');
+
+            // Set button to loading state
+            const originalText = submitBtn.innerText;
+            submitBtn.innerText = 'PLEASE WAIT...';
+            submitBtn.style.opacity = '0.7';
+            submitBtn.style.pointerEvents = 'none';
+
+            try {
+                // --- REGISTER ROUTE ---
+                if (confirmPassword !== undefined) {
+                    if (password !== confirmPassword) {
+                        alert("Oops! Your passwords don't match.");
+                        resetButton(submitBtn, originalText);
+                        return;
+                    }
+
+                    // 1. Send data to your Register endpoint
+                    const response = await fetch('/api/register', { // <-- REPLACE with your actual backend URL
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ email, password })
+                    });
+
+                    const data = await response.json();
+
+                    // 2. Handle the server's response
+                    if (response.ok) {
+                        alert("Registration successful! Please log in.");
+                        window.location.href = 'login.html';
+                    } else {
+                        // Display error from the server (e.g., "Email already exists")
+                        alert(data.message || "Registration failed. Please try again.");
+                        resetButton(submitBtn, originalText);
+                    }
+                }
+                // --- LOGIN ROUTE ---
+                else {
+                    // 1. Send data to your Login endpoint
+                    const response = await fetch('/api/login', { // <-- REPLACE with your actual backend URL
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ email, password })
+                    });
+
+                    const data = await response.json();
+
+                    // 2. Handle the server's response
+                    if (response.ok) {
+                        // Usually, you'd save a token here, e.g., localStorage.setItem('token', data.token);
+                        alert("Login successful!");
+                        window.location.href = 'index.html';
+                    } else {
+                        // Display error from server (e.g., "Invalid credentials")
+                        alert(data.message || "Login failed. Please check your credentials.");
+                        resetButton(submitBtn, originalText);
+                    }
+                }
+            } catch (error) {
+                console.error("Network Error:", error);
+                alert("Something went wrong connecting to the server. Please try again later.");
+                resetButton(submitBtn, originalText);
+            }
+        });
+    }
+
+    function resetButton(btn, text) {
+        btn.innerText = text;
+        btn.style.opacity = '1';
+        btn.style.pointerEvents = 'auto';
+    }
+});

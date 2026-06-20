@@ -11,11 +11,11 @@
     <link rel="stylesheet" href="home.css">
 </head>
 
-<body class="suggestions-page">
+<body class="faqs-page">
 
     <header>
         <div class="header-title">RAM BHAKT MANDAL</div>
-
+        
         <!-- Desktop Navigation -->
         <nav class="desktop-nav">
             <ul>
@@ -37,7 +37,7 @@
     </header>
 
     <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
-
+    
     <!-- Mobile Sidebar -->
     <nav class="sidebar" id="sidebar">
         <button class="close-btn" onclick="toggleMenu()">&times;</button>
@@ -52,14 +52,17 @@
         </ul>
     </nav>
 
-    <main id="content-area">
-        <div class="suggestion-box">
-            <form action="POST">
-                <h1>SUGGESTIONS</h1>
-                <textarea rows="5" placeholder="Post your suggestions here..."></textarea>
+    <main id="content-area" class="faq-page-main">
+        <div class="question-box">
+            <form action="POST" class="questionForm">
+                <h1>QUESTIONS</h1>
+                <textarea rows="5" placeholder="Post your questions here..." id="questionInput"></textarea>
                 <br>
-                <button>SUBMIT</button>
+                <button type="submit">SUBMIT</button>
             </form>
+        </div>
+        <div class="faq-box">
+            <h1>FAQs</h1>
         </div>
     </main>
 

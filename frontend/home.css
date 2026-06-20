@@ -882,3 +882,291 @@ header {
     box-shadow: inset 2px 2px 5px rgba(180, 160, 140, 0.3), 
                 inset -2px -2px 5px rgba(255, 255, 255, 0.9);
 }
+/* --- FAQ & QUESTION LAYOUT CONTAINER --- */
+.faq-page-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; /* Keeps them at their natural height instead of stretching */
+    gap: 40px; /* Creates the space between the two boxes */
+    max-width: 1200px; /* Controls the total width of both boxes combined */
+    margin: 40px auto; /* Centers the entire container on the page */
+    padding: 0 20px;
+}
+
+/* --- THE NEUMORPHIC BOXES --- */
+/* We combine them here since they share the same base styling */
+.question-box, 
+.faq-box {
+    flex: 1; /* This forces both boxes to take up exactly 50% of the space */
+    padding: 40px 30px;
+
+    background-color: var(--bg-cream, #ffffff);
+    border: 2px solid var(--border-light, #e0e0e0);
+    border-radius: 12px;
+
+    /* The Neumorphic Shadows */
+    box-shadow:
+        8px 8px 25px rgba(180, 160, 140, 0.3),
+        -8px -8px 25px rgba(255, 255, 255, 0.9);
+
+    /* Typography */
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--text-brown);
+    text-align: center;
+    line-height: 1.9;
+    
+    transition: all 0.3s ease;
+}
+
+.question-box:hover,
+.faq-box:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(197, 160, 89, 0.15);
+    border-color: var(--accent-gold);
+}
+
+.question-box h1,
+.faq-box h1 {
+    font-family: 'Cinzel', serif;
+    font-size: 2rem;
+    color: var(--text-brown);
+    margin: 0 0 20px 0;
+    letter-spacing: 2px;
+}
+
+/* --- FORM ELEMENTS (Inside Question Box) --- */
+.question-box form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px; 
+    width: 100%;
+}
+
+.question-box input[type="text"],
+.question-box textarea {
+    width: 100%;
+    padding: 15px 20px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1rem;
+    color: var(--text-brown);
+    
+    /* Neumorphic Inset Shadow for a sunken look */
+    background: #faf7f2; 
+    border: 1px solid rgba(180, 160, 140, 0.2);
+    border-radius: 10px;
+    box-shadow: inset 4px 4px 8px rgba(180, 160, 140, 0.2), 
+                inset -4px -4px 8px rgba(255, 255, 255, 0.9);
+                
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.question-box input[type="text"]:focus,
+.question-box textarea:focus {
+    border-color: var(--accent-gold);
+    box-shadow: inset 4px 4px 8px rgba(180, 160, 140, 0.2), 
+                inset -4px -4px 8px rgba(255, 255, 255, 0.9),
+                0 0 10px rgba(197, 160, 89, 0.2);
+}
+
+/* The Submit Button */
+.question-box button {
+    background: linear-gradient(135deg, #ffffff, #f2eadc);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 30px; 
+    padding: 12px 40px;
+    
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--accent-orange);
+    letter-spacing: 1.5px;
+    cursor: pointer;
+    
+    box-shadow: 4px 4px 10px rgba(180, 160, 140, 0.3), 
+               -4px -4px 10px rgba(255, 255, 255, 0.9);
+    transition: all 0.2s ease;
+}
+
+.question-box button:hover {
+    transform: translateY(-2px);
+    color: var(--text-brown);
+    box-shadow: 6px 6px 15px rgba(180, 160, 140, 0.4), 
+               -6px -6px 15px rgba(255, 255, 255, 1);
+}
+
+.question-box button:active {
+    transform: translateY(2px);
+    box-shadow: inset 2px 2px 5px rgba(180, 160, 140, 0.3), 
+                inset -2px -2px 5px rgba(255, 255, 255, 0.9);
+}
+
+/* --- MOBILE RESPONSIVENESS --- */
+@media (max-width: 768px) {
+    .faq-page-main {
+        flex-direction: column; /* Stacks the boxes on top of each other on phones */
+        gap: 30px;
+        margin: 20px auto;
+    }
+}
+/* --- AUTHENTICATION PAGES (LOGIN / REGISTER) --- */
+
+/* Centers the auth box perfectly on the screen */
+.auth-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh; /* Ensures it sits nicely in the middle of the screen */
+    padding: 40px 20px;
+}
+
+.auth-box {
+    width: 100%;
+    max-width: 450px; /* Keeps the form narrow and elegant */
+    padding: 50px 40px;
+    
+    background: linear-gradient(135deg, #ffffff, #f2eadc);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 16px;
+    
+    /* Soft Neumorphic out-shadow */
+    box-shadow: 
+        10px 10px 30px rgba(180, 160, 140, 0.3), 
+        -10px -10px 30px rgba(255, 255, 255, 0.9);
+        
+    text-align: center;
+}
+
+.auth-box h1 {
+    font-family: 'Cinzel', serif;
+    font-size: 2.2rem;
+    color: var(--text-brown);
+    margin: 0 0 5px 0;
+    letter-spacing: 2px;
+}
+
+.auth-subtitle {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1rem;
+    color: var(--accent-orange);
+    margin-bottom: 30px;
+    font-weight: 600;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    width: 100%;
+}
+
+.input-group label {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-brown);
+    margin-left: 5px; /* Aligns slightly inset */
+}
+
+/* Reusing the inset shadow logic for text/email/password inputs */
+.auth-box input[type="text"],
+.auth-box input[type="email"],
+.auth-box input[type="password"] {
+    width: 100%;
+    padding: 15px 20px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1rem;
+    color: var(--text-brown);
+    
+    background: #faf7f2;
+    border: 1px solid rgba(180, 160, 140, 0.2);
+    border-radius: 10px;
+    box-shadow: inset 4px 4px 8px rgba(180, 160, 140, 0.2), 
+                inset -4px -4px 8px rgba(255, 255, 255, 0.9);
+                
+    transition: all 0.3s ease;
+    outline: none;
+    /* Prevents inputs from breaking the box width */
+    box-sizing: border-box; 
+}
+
+.auth-box input:focus {
+    border-color: var(--accent-gold);
+    box-shadow: inset 4px 4px 8px rgba(180, 160, 140, 0.2), 
+                inset -4px -4px 8px rgba(255, 255, 255, 0.9),
+                0 0 10px rgba(197, 160, 89, 0.2);
+}
+
+.auth-btn {
+    background: linear-gradient(135deg, #ffffff, #f2eadc);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 30px;
+    padding: 15px 0;
+    margin-top: 10px;
+    
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--accent-orange);
+    letter-spacing: 1.5px;
+    cursor: pointer;
+    
+    box-shadow: 4px 4px 10px rgba(180, 160, 140, 0.3), 
+               -4px -4px 10px rgba(255, 255, 255, 0.9);
+    transition: all 0.2s ease;
+    width: 100%;
+}
+
+.auth-btn:hover {
+    transform: translateY(-2px);
+    color: var(--text-brown);
+    box-shadow: 6px 6px 15px rgba(180, 160, 140, 0.4), 
+               -6px -6px 15px rgba(255, 255, 255, 1);
+}
+
+.auth-btn:active {
+    transform: translateY(2px);
+    box-shadow: inset 2px 2px 5px rgba(180, 160, 140, 0.3), 
+                inset -2px -2px 5px rgba(255, 255, 255, 0.9);
+}
+
+.auth-switch {
+    margin-top: 25px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.95rem;
+    color: var(--text-brown);
+}
+
+.auth-switch a {
+    color: var(--accent-orange);
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.auth-switch a:hover {
+    color: var(--accent-gold);
+    text-decoration: underline;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .auth-box {
+        padding: 40px 25px;
+    }
+    
+    .auth-box h1 {
+        font-size: 1.8rem;
+    }
+}
