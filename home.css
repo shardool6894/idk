@@ -621,3 +621,35 @@ header {
 .event-modal p strong {
     color: var(--accent-gold);
 }
+/* prayers */
+.prayer {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 50px 30px;
+    
+    background-color: var(--bg-cream);
+    border: 2px solid var(--border-light);
+    border-radius: 12px;
+    
+    /* The Neumorphic Shadows for the raised look */
+    box-shadow: 
+        8px 8px 25px rgba(180, 160, 140, 0.3), 
+        -8px -8px 25px rgba(255, 255, 255, 0.9);
+        
+    /* Typography */
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--text-brown);
+    text-align: center;
+    line-height: 1.9; /* Slightly taller line height for easier reading */
+
+    white-space: pre-line;
+}
+
+.prayer:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(197, 160, 89, 0.15);
+    border-color: var(--accent-gold);
+}
+
