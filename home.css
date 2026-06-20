@@ -774,3 +774,111 @@ header {
         padding: 10px;
     }
 }
+/* suggestions */
+.suggestion-box {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 50px 30px;
+
+    background-color: var(--bg-cream);
+    border: 2px solid var(--border-light);
+    border-radius: 12px;
+
+    /* The Neumorphic Shadows for the raised look */
+    box-shadow:
+        8px 8px 25px rgba(180, 160, 140, 0.3),
+        -8px -8px 25px rgba(255, 255, 255, 0.9);
+
+    /* Typography */
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--text-brown);
+    text-align: center;
+    line-height: 1.9;
+}
+
+.suggestion-box:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(197, 160, 89, 0.15);
+    border-color: var(--accent-gold);
+}
+
+.suggestion-box form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px; /* Replaces the need for <br> tags */
+    width: 100%;
+}
+
+.suggestion-box h1 {
+    font-family: 'Cinzel', serif;
+    font-size: 2rem;
+    color: var(--text-brown);
+    margin: 0;
+    letter-spacing: 2px;
+}
+
+.suggestion-box input[type="text"],
+.suggestion-box textarea {
+    width: 100%;
+    max-width: 600px;
+    padding: 15px 20px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1rem;
+    color: var(--text-brown);
+    
+    /* Neumorphic Inset Shadow for a sunken look */
+    background: #faf7f2; /* slightly off-white */
+    border: 1px solid rgba(180, 160, 140, 0.2);
+    border-radius: 10px;
+    box-shadow: inset 4px 4px 8px rgba(180, 160, 140, 0.2), 
+                inset -4px -4px 8px rgba(255, 255, 255, 0.9);
+                
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.suggestion-box input[type="text"]:focus,
+.suggestion-box textarea:focus {
+    border-color: var(--accent-gold);
+    /* Soft glow when typing */
+    box-shadow: inset 4px 4px 8px rgba(180, 160, 140, 0.2), 
+                inset -4px -4px 8px rgba(255, 255, 255, 0.9),
+                0 0 10px rgba(197, 160, 89, 0.2);
+}
+
+/* The Submit Button (Raised effect) */
+.suggestion-box button {
+    background: linear-gradient(135deg, #ffffff, #f2eadc);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 30px; /* Pill shape */
+    padding: 12px 40px;
+    
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--accent-orange);
+    letter-spacing: 1.5px;
+    cursor: pointer;
+    
+    /* Outward Neumorphic Shadow matching the box */
+    box-shadow: 4px 4px 10px rgba(180, 160, 140, 0.3), 
+               -4px -4px 10px rgba(255, 255, 255, 0.9);
+    transition: all 0.2s ease;
+}
+
+.suggestion-box button:hover {
+    transform: translateY(-2px);
+    color: var(--text-brown);
+    box-shadow: 6px 6px 15px rgba(180, 160, 140, 0.4), 
+               -6px -6px 15px rgba(255, 255, 255, 1);
+}
+
+.suggestion-box button:active {
+    /* Pushes the button down when clicked */
+    transform: translateY(2px);
+    box-shadow: inset 2px 2px 5px rgba(180, 160, 140, 0.3), 
+                inset -2px -2px 5px rgba(255, 255, 255, 0.9);
+}

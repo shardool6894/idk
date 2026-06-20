@@ -11,11 +11,11 @@
     <link rel="stylesheet" href="home.css">
 </head>
 
-<body class="notices-page">
+<body class="suggestions-page">
 
     <header>
         <div class="header-title">RAM BHAKT MANDAL</div>
-        
+
         <!-- Desktop Navigation -->
         <nav class="desktop-nav">
             <ul>
@@ -24,7 +24,7 @@
                 <li><a href="gallery.html" class="navigation-link">Gallery</a></li>
                 <li><a href="prayers.html" class="navigation-link">Prayers</a></li>
                 <li><a href="donate.html" class="navigation-link">Donate</a></li>
-                <li><a href="notices.html" class="navigation-link">Notices</a></li>
+                <li><a href="suggestions.html" class="navigation-link">suggestions</a></li>
                 <li><a href="faqs.html" class="navigation-link">FAQs</a></li>
             </ul>
         </nav>
@@ -37,7 +37,7 @@
     </header>
 
     <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
-    
+
     <!-- Mobile Sidebar -->
     <nav class="sidebar" id="sidebar">
         <button class="close-btn" onclick="toggleMenu()">&times;</button>
@@ -47,13 +47,21 @@
             <li><a href="gallery.html" class="navigation-link">Gallery & Media</a></li>
             <li><a href="prayers.html" class="navigation-link">Prayers</a></li>
             <li><a href="donate.html" class="navigation-link">Donate</a></li>
-            <li><a href="notices.html" class="navigation-link">Notices</a></li>
+            <li><a href="suggestions.html" class="navigation-link">suggestions</a></li>
             <li><a href="faqs.html" class="navigation-link">FAQs</a></li>
         </ul>
     </nav>
 
     <main id="content-area">
-        </main>
+        <div class="suggestion-box">
+            <form action="POST">
+                <h1>SUGGESTIONS</h1>
+                <textarea rows="5" placeholder="Post your suggestions here..."></textarea>
+                <br>
+                <button>SUBMIT</button>
+            </form>
+        </div>
+    </main>
 
     <script src="home.js"></script>
 </body>
