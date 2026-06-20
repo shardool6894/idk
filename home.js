@@ -53,68 +53,125 @@ links.forEach(link => {
 });
 
 //schedule
+// --- MODAL FUNCTIONS ---
+// We attach these to 'window' so they can be called from anywhere
+window.openEventModal = function (name, date, location, time) {
+    document.getElementById('modalEventName').innerText = name;
+    document.getElementById('modalEventDate').innerText = date;
+
+    // Show or hide location/time based on if they exist for that day
+    if (location) {
+        document.getElementById('modalLocationContainer').style.display = 'block';
+        document.getElementById('modalEventLocation').innerText = location;
+    } else {
+        document.getElementById('modalLocationContainer').style.display = 'none';
+    }
+
+    if (time) {
+        document.getElementById('modalTimeContainer').style.display = 'block';
+        document.getElementById('modalEventTime').innerText = time;
+    } else {
+        document.getElementById('modalTimeContainer').style.display = 'none';
+    }
+
+    document.getElementById('eventModalOverlay').classList.add('active');
+    document.getElementById('eventModal').classList.add('active');
+};
+
+window.closeEventModal = function () {
+    document.getElementById('eventModalOverlay').classList.remove('active');
+    document.getElementById('eventModal').classList.remove('active');
+};
+
+// --- SCHEDULE LOGIC ---
 function loadLoadCalendar() {
-    const calendarGrid = document.querySelector('.calendar-grid')
+    const calendarGrid = document.querySelector('.calendar-grid');
+
     if (calendarGrid) {
+        // Create the Modal HTML and inject it into the page exactly once
+        if (!document.getElementById('eventModal')) {
+            const modalHTML = `
+            <div class="event-modal-overlay" id="eventModalOverlay" onclick="closeEventModal()"></div>
+            <div class="event-modal" id="eventModal">
+                <button class="modal-close-btn" onclick="closeEventModal()">&times;</button>
+                <h4 id="modalEventName"></h4>
+                <p><strong>Date:</strong> <span id="modalEventDate"></span></p>
+                <p id="modalLocationContainer"><strong>Location:</strong> <span id="modalEventLocation"></span></p>
+                <p id="modalTimeContainer"><strong>Time:</strong> <span id="modalEventTime"></span></p>
+            </div>
+            `;
+            document.body.insertAdjacentHTML('beforeend', modalHTML);
+        }
+
+        const yearSelect = document.getElementById("yearSelect");
+
+        for (let year = 1900; year <= 2100; year++) {
+            const option = document.createElement("option");
+            option.value = year;
+            option.textContent = year;
+            yearSelect.appendChild(option);
+        }
+        
         const date = new Date();
-        const day = date.getDate();
         const month = (date.getMonth() + 1);
         const year = date.getFullYear();
-        const calendarChooseMonth = document.getElementById('monthSelect')
+
+        const calendarChooseMonth = document.getElementById('monthSelect');
         calendarChooseMonth.value = month;
-        const calendarChooseYear = document.getElementById('yearSelect')
+        const calendarChooseYear = document.getElementById('yearSelect');
         calendarChooseYear.value = year;
+
         function getDaysInMonth(month, year) {
             return (new Date(year, month, 0)).getDate();
         }
+
         function loadCalendar() {
-            const existingDays = calendarGrid.querySelectorAll('.cal-day')
+            const existingDays = calendarGrid.querySelectorAll('.cal-day');
             existingDays.forEach(day => day.remove());
-            const selectedMonth = calendarChooseMonth.value
-            const selectedYear = calendarChooseYear.value
+
+            const selectedMonth = calendarChooseMonth.value;
+            const selectedYear = calendarChooseYear.value;
             const numberOfEmptyBoxes = (new Date(selectedYear, selectedMonth - 1, 1)).getDay();
+
+            let daysHtml = '';
+
+            // Empty Boxes
             for (let i = 0; i < numberOfEmptyBoxes; i++) {
-                let addedContent = `<div class="cal-day">
-        <div class="cal-date-number">
-        </div>
-    </div>`
-                calendarGrid.innerHTML += addedContent
+                daysHtml += `<div class="cal-day empty"></div>`;
             }
-            const numberOfDays = getDaysInMonth(selectedMonth, selectedYear)
+
+            // Numbered Days
+            const numberOfDays = getDaysInMonth(selectedMonth, selectedYear);
             for (let i = 1; i <= numberOfDays; i++) {
-                const dayOfTheWeek = (new Date(selectedYear,selectedMonth-1, i)).getDay();
-                if(dayOfTheWeek===2){
-                    let addedContent = `<div class="cal-day">
-        <div class="cal-date-number">
-            ${i}
-        </div>
-        Hanuman Chalisa <br>
-        Location - Proposed Innovation Garage <br>
-        Time - 7pm
-    </div>`
-    calendarGrid.innerHTML += addedContent
+                const dayOfTheWeek = (new Date(selectedYear, selectedMonth - 1, i)).getDay();
+
+                // TUESDAY (Day 2)
+                if (dayOfTheWeek === 2) {
+                    daysHtml += `
+                    <div class="cal-day has-event" onclick="openEventModal('Hanuman Chalisa', '${i} / ${selectedMonth} / ${selectedYear}', 'Proposed Innovation Garage, Opp. 1.8K Hostel', '7:00 PM')">
+                        <div class="cal-date-number day${dayOfTheWeek}">${i}</div>
+                        <div class="cal-event-name">Hanuman Chalisa</div>
+                    </div>`;
                 }
-                else if(dayOfTheWeek===6){
-                    let addedContent = `<div class="cal-day">
-        <div class="cal-date-number">
-            ${i}
-        </div>
-        Hanuman Chalisa <br>
-        Location - Kazipet Station <br>
-        Time - 7pm
-    </div>`
-    calendarGrid.innerHTML += addedContent
+                // SATURDAY (Day 6)
+                else if (dayOfTheWeek === 6) {
+                    daysHtml += `
+                    <div class="cal-day has-event" onclick="openEventModal('Hanuman Chalisa', '${i} / ${selectedMonth} / ${selectedYear}', 'Kazipet Railway Station', '7:00 PM')">
+                        <div class="cal-date-number day${dayOfTheWeek}">${i}</div>
+                        <div class="cal-event-name">Hanuman Chalisa</div>
+                    </div>`;
                 }
-                else{
-                let addedContent = `<div class="cal-day">
-        <div class="cal-date-number">
-            ${i}
-        </div>
-    </div>`
-    calendarGrid.innerHTML += addedContent
+                // REGULAR DAYS
+                else {
+                    daysHtml += `
+                    <div class="cal-day">
+                        <div class="cal-date-number day${dayOfTheWeek}">${i}</div>
+                    </div>`;
                 }
             }
+            calendarGrid.innerHTML += daysHtml;
         }
+
         calendarChooseMonth.addEventListener('change', loadCalendar);
         calendarChooseYear.addEventListener('change', loadCalendar);
         loadCalendar();
