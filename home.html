@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ram Bhakt Mandal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Optional: Adding a sans-serif font for the small description text -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="home.css">
+</head>
+
+<body class="home-page">
+
+    <header>
+        <div class="header-title">RAM BHAKT MANDAL</div>
+        
+        <!-- Desktop Navigation -->
+        <nav class="desktop-nav">
+            <ul>
+                <li><a href="home.html" class="active navigation-link">Home</a></li>
+                <li><a href="about.html" class="navigation-link">About</a></li>
+                <li><a href="gallery.html" class="navigation-link">Gallery</a></li>
+                <li><a href="prayers.html" class="navigation-link">Prayers</a></li>
+                <li><a href="donate.html" class="navigation-link">Donate</a></li>
+                <li><a href="notices.html" class="navigation-link">Notices</a></li>
+                <li><a href="faqs.html" class="navigation-link">FAQs</a></li>
+                <li><a href="contact.html" class="navigation-link">Contact</a></li>
+            </ul>
+        </nav>
+
+        <button class="menu-btn" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </header>
+
+    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+    
+    <!-- Mobile Sidebar -->
+    <nav class="sidebar" id="sidebar">
+        <button class="close-btn" onclick="toggleMenu()">&times;</button>
+        <ul>
+            <li><a href="home.html" class="navigation-link">Home</a></li>
+            <li><a href="about.html" class="navigation-link">About</a></li>
+            <li><a href="gallery.html" class="navigation-link">Gallery & Media</a></li>
+            <li><a href="prayers.html" class="navigation-link">Prayers</a></li>
+            <li><a href="donate.html" class="navigation-link">Donate</a></li>
+            <li><a href="notices.html" class="navigation-link">Notices</a></li>
+            <li><a href="faqs.html" class="navigation-link">FAQs</a></li>
+            <li><a href="contact.html" class="navigation-link">Contact</a></li>
+        </ul>
+    </nav>
+
+    <main id="content-area">
+        <section class="hero-banner" id="home">
+            <div class="hero-content">
+                <h2>WELCOME TO</h2>
+                <h1>RAM BHAKT MANDAL</h1>
+                <p>A Spiritual Community Journey</p>
+            </div>
+        </section>
+
+        <section class="grid-container">
+            <!-- LEFT COLUMN -->
+            <a href="schedule.html" class="side-card navigation-link item-left-1">
+                <div class="icon-placeholder">📅</div>
+                <div class="card-text">SCHEDULE</div>
+            </a>
+
+            <a href="donate.html" class="side-card navigation-link item-left-2">
+                <div class="icon-placeholder">🤲</div>
+                <div class="card-text">
+                    DONATE
+                    <span class="btn-orange">DONATE NOW</span>
+                </div>
+            </a>
+
+            <a href="idk.html" class="side-card navigation-link item-left-3">
+                <div class="icon-placeholder">🤎</div>
+                <div class="card-text">
+                    idk
+                    <span class="btn-orange">DONATE NOW</span>
+                </div>
+            </a>
+
+            <!-- CENTER COLUMN (Untouched SVG inside) -->
+            <a href="events.html" id="events" class="side-card navigation-link card-events">
+                <div class="events-content">
+                    <h3>UPCOMING<br>EVENTS</h3>
+                    <!-- <div class="events-desc">
+                        <p><strong>Maha Aarti</strong> - Every Sunday<br>amet, consectetur<br>adipiscing elit, sed a...</p>
+                        <p><strong>Satsang</strong> - Tuesday Evening<br>amet, consectetur</p>
+                    </div> -->
+                </div>
+
+                <svg viewBox="0 0 100 100" class="events-svg" preserveAspectRatio="none">
+                    <rect x="0.805" y="95" width="98.39" height="5" stroke-width="0.5" stroke="var(--accent-gold)" fill="var(--bg-cream)" />
+                    <rect x="1.805" y="90" width="96.39" height="5" stroke-width="0.5" stroke="var(--accent-gold)" fill="var(--bg-cream)" />
+                    
+                    <line x1="2.905" y1="82" x2="2.905" y2="0" stroke="var(--accent-gold)" stroke-width="0.2" />
+                    <line x1="25.105" y1="88" x2="25.105" y2="40" stroke="var(--accent-gold)" stroke-width="0.5" />
+                    <line x1="27.105" y1="88" x2="27.105" y2="40" stroke="var(--accent-gold)" stroke-width="0.5" />
+                    <line x1="27.105" y1="88" x2="25.105" y2="88" stroke="var(--accent-gold)" stroke-width="0.5" />
+                    <line x1="22.105" y1="88" x2="25.105" y2="88" stroke="var(--accent-gold)" stroke-width="0.5" />
+                    <line x1="19.105" y1="90" x2="22.105" y2="88" stroke="var(--accent-gold)" stroke-width="0.5" />
+                    <line x1="19.105" y1="82" x2="22.105" y2="80" stroke="var(--accent-gold)" stroke-width="0.5" />
+                    <line x1="22.105" y1="88" x2="22.105" y2="80" stroke="var(--accent-gold)" stroke-width="0.5" />
+                    <line x1="18.105" y1="77" x2="21.105" y2="75" stroke="var(--accent-gold)" stroke-width="0.5" />
+                    <line x1="21.105" y1="80" x2="21.105" y2="75" stroke="var(--accent-gold)" stroke-width="0.5" />
+                    <line x1="20.905" y1="80" x2="22.305" y2="80" stroke="var(--accent-gold)" stroke-width="0.5" />
+                    <line x1="27.105" y1="88" x2="30.105" y2="86" stroke="var(--accent-gold)" stroke-width="0.5" />
+                    <line x1="30.105" y1="86" x2="30.105" y2="38" stroke="var(--accent-gold)" stroke-width="0.5" />
+                    <line x1="21.105" y1="40" x2="27.105" y2="40" stroke="var(--accent-gold)" stroke-width="0.5" />
+                    <line x1="27.105" y1="40" x2="30.105" y2="38" stroke="var(--accent-gold)" stroke-width="0.5" />
+                    <line x1="18.105" y1="42" x2="21.105" y2="40" stroke="var(--accent-gold)" stroke-width="0.5" />
+                    <line x1="18.105" y1="47" x2="21.105" y2="45" stroke="var(--accent-gold)" stroke-width="0.5" />
+                    <line x1="21.105" y1="40" x2="21.105" y2="45" stroke="var(--accent-gold)" stroke-width="0.5" />
+                    <line x1="20.105" y1="40" x2="20.105" y2="17.2" stroke="var(--accent-gold)" stroke-width="0.5" />
+                    <line x1="19.905" y1="40" x2="21.105" y2="40" stroke="var(--accent-gold)" stroke-width="0.5" />
+                    <line x1="17.105" y1="42" x2="17.105" y2="14.2" stroke="var(--accent-gold)" stroke-width="0.5" />
+                    <line x1="2.905" y1="42" x2="2.905" y2="0" stroke="var(--accent-gold)" stroke-width="0.5" />
+                    <line x1="2.905" y1="42" x2="3.905" y2="42" stroke="var(--accent-gold)" stroke-width="0.5" />
+
+                    <g stroke="var(--accent-gold)" stroke-width="0.5" fill="var(--bg-cream)">
+                        <path d="M 18.105 77 L 21.105 75 Q 21.105 67, 17.005 67 L 14.005 69 Q 18.105 69, 18.105 77 Z" />
+                        <path d="M 14.005 69 L 17.005 67 L 17.005 53 L 14.005 55 Z" />
+                        <line x1="15.005" y1="68.33" x2="15.005" y2="54.33" stroke-width="0.3" />
+                        <line x1="16.005" y1="67.66" x2="16.005" y2="53.66" stroke-width="0.3" />
+                        <path d="M 18.105 47 L 21.105 45 Q 21.105 53, 17.005 53 L 14.005 55 Q 18.105 55, 18.105 47 Z" />
+                        
+                        <path d="M 3.905 77 L 18.105 77 Q 18.105 69, 14.005 69 L 8.005 69 Q 3.905 69, 3.905 77 Z" />
+                        <path d="M 6.905 77 Q 8.005 73, 11.005 69 Q 14.005 73, 15.105 77" fill="none"/>
+                        <rect x="8.005" y="55" width="6" height="14" />
+                        <line x1="9.505" y1="55" x2="9.505" y2="69" stroke-width="0.3" />
+                        <line x1="11.005" y1="55" x2="11.005" y2="69" stroke-width="0.3" />
+                        <line x1="12.505" y1="55" x2="12.505" y2="69" stroke-width="0.3" />
+                        <path d="M 3.905 47 L 18.105 47 Q 18.105 55, 14.005 55 L 8.005 55 Q 3.905 55, 3.905 47 Z" />
+                        <path d="M 6.905 47 Q 8.005 51, 11.005 55 Q 14.005 51, 15.105 47" fill="none"/>
+                    </g>
+
+                    <rect x="2.905" y="82" width="17.2" height="8" stroke-width="0.5" stroke="var(--accent-gold)" fill="var(--bg-cream)" />
+                    <rect x="3.905" y="77" width="14.2" height="5" stroke-width="0.5" stroke="var(--accent-gold)" fill="var(--bg-cream)" />
+                    <rect x="3.905" y="42" width="14.2" height="5" stroke-width="0.5" stroke="var(--accent-gold)" fill="var(--bg-cream)" />
+                    
+                    <g stroke="var(--accent-gold)" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M 2.905 42 Q 6 30 10.505 26 Q 15 30 18.105 42 L 2.905 42 Z" fill="var(--bg-cream)" />
+                    </g>    
+                    <path d="M 25.105 40 Q 50 12.2 74.895 40" stroke="var(--accent-gold)" stroke-width="0.5" fill="none" />        
+                    <path d="M 27.105 40 Q 50 14.2 72.895 40" stroke="var(--accent-gold)" stroke-width="0.5" fill="none" />        
+                    <path d="M 30.105 38 Q 50 19 69.895 38" stroke="var(--accent-gold)" stroke-width="0.5" fill="none"/>
+                    <line x1="17.105" y1="14.2" x2="20.105" y2="17.2" stroke="var(--accent-gold)" stroke-width="0.5" />
+                    <line x1="17.105" y1="14.2" x2="50" y2="14.2" stroke="var(--accent-gold)" stroke-width="0.5" />
+                    <line x1="20.105" y1="17.2" x2="50" y2="17.2" stroke="var(--accent-gold)" stroke-width="0.5" />
+
+                    <line x1="30.105" y1="86" x2="69.985" y2="86" stroke="var(--accent-gold)" stroke-width="0.5"/>
+
+                    <line x1="97.095" y1="82" x2="97.095" y2="0" stroke="var(--accent-gold)" stroke-width="0.2" />
+                    <line x1="74.895" y1="88" x2="74.895" y2="40" stroke="var(--accent-gold)" stroke-width="0.5" />
+                    <line x1="72.895" y1="88" x2="72.895" y2="40" stroke="var(--accent-gold)" stroke-width="0.5" />
+                    <line x1="72.895" y1="88" x2="74.895" y2="88" stroke="var(--accent-gold)" stroke-width="0.5" />
+                    <line x1="77.895" y1="88" x2="74.895" y2="88" stroke="var(--accent-gold)" stroke-width="0.5" />
+                    <line x1="80.895" y1="90" x2="77.895" y2="88" stroke="var(--accent-gold)" stroke-width="0.5" />
+                    <line x1="80.895" y1="82" x2="77.895" y2="80" stroke="var(--accent-gold)" stroke-width="0.5" />
+                    <line x1="77.895" y1="88" x2="77.895" y2="80" stroke="var(--accent-gold)" stroke-width="0.5" />
+                    <line x1="81.895" y1="77" x2="78.895" y2="75" stroke="var(--accent-gold)" stroke-width="0.5" />
+                    <line x1="78.895" y1="80" x2="78.895" y2="75" stroke="var(--accent-gold)" stroke-width="0.5" />
+                    <line x1="79.095" y1="80" x2="77.695" y2="80" stroke="var(--accent-gold)" stroke-width="0.5" />
+                    <line x1="72.895" y1="88" x2="69.895" y2="86" stroke="var(--accent-gold)" stroke-width="0.5" />
+                    <line x1="69.895" y1="86" x2="69.895" y2="38" stroke="var(--accent-gold)" stroke-width="0.5" />
+                    <line x1="78.895" y1="40" x2="72.895" y2="40" stroke="var(--accent-gold)" stroke-width="0.5" />
+                    <line x1="72.895" y1="40" x2="69.895" y2="38" stroke="var(--accent-gold)" stroke-width="0.5" />
+                    <line x1="81.895" y1="42" x2="78.895" y2="40" stroke="var(--accent-gold)" stroke-width="0.5" />
+                    <line x1="81.895" y1="47" x2="78.895" y2="45" stroke="var(--accent-gold)" stroke-width="0.5" />
+                    <line x1="78.895" y1="40" x2="78.895" y2="45" stroke="var(--accent-gold)" stroke-width="0.5" />
+                    <line x1="79.895" y1="40" x2="79.895" y2="17.2" stroke="var(--accent-gold)" stroke-width="0.5" />
+                    <line x1="80.095" y1="40" x2="78.895" y2="40" stroke="var(--accent-gold)" stroke-width="0.5" />
+                    <line x1="82.895" y1="42" x2="82.895" y2="14.2" stroke="var(--accent-gold)" stroke-width="0.5" />
+                    <line x1="97.095" y1="42" x2="97.095" y2="0" stroke="var(--accent-gold)" stroke-width="0.5" />
+                    <line x1="97.095" y1="42" x2="96.095" y2="42" stroke="var(--accent-gold)" stroke-width="0.5" />
+
+                    <g stroke="var(--accent-gold)" stroke-width="0.5" fill="var(--bg-cream)">
+                        <path d="M 81.895 77 L 78.895 75 Q 78.895 67, 82.995 67 L 85.995 69 Q 81.895 69, 81.895 77 Z" />
+                        <path d="M 85.995 69 L 82.995 67 L 82.995 53 L 85.995 55 Z" />
+                        <line x1="84.995" y1="68.33" x2="84.995" y2="54.33" stroke-width="0.3" />
+                        <line x1="83.995" y1="67.66" x2="83.995" y2="53.66" stroke-width="0.3" />
+                        <path d="M 81.895 47 L 78.895 45 Q 78.895 53, 82.995 53 L 85.995 55 Q 81.895 55, 81.895 47 Z" />
+                        
+                        <path d="M 81.895 77 L 96.095 77 Q 96.095 69, 91.995 69 L 85.995 69 Q 81.895 69, 81.895 77 Z" />
+                        <path d="M 84.895 77 Q 85.995 73, 88.995 69 Q 91.995 73, 93.095 77" fill="none"/>
+                        <rect x="85.995" y="55" width="6" height="14" />
+                        <line x1="87.495" y1="55" x2="87.495" y2="69" stroke-width="0.3" />
+                        <line x1="88.995" y1="55" x2="88.995" y2="69" stroke-width="0.3" />
+                        <line x1="90.495" y1="55" x2="90.495" y2="69" stroke-width="0.3" />
+                        <path d="M 81.895 47 L 96.095 47 Q 96.095 55, 91.995 55 L 85.995 55 Q 81.895 55, 81.895 47 Z" />
+                        <path d="M 84.895 47 Q 85.995 51, 88.995 55 Q 91.995 51, 93.095 47" fill="none"/>
+                    </g>
+
+                    <rect x="79.895" y="82" width="17.2" height="8" stroke-width="0.5" stroke="var(--accent-gold)" fill="var(--bg-cream)" />
+                    <rect x="81.895" y="77" width="14.2" height="5" stroke-width="0.5" stroke="var(--accent-gold)" fill="var(--bg-cream)" />
+                    <rect x="81.895" y="42" width="14.2" height="5" stroke-width="0.5" stroke="var(--accent-gold)" fill="var(--bg-cream)" />
+                    
+                    <g stroke="var(--accent-gold)" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M 97.095 42 Q 94 30 89.495 26 Q 85 30 81.895 42 L 97.095 42 Z" fill="var(--bg-cream)" />
+                    </g>
+                    <line x1="82.895" y1="14.2" x2="79.895" y2="17.2" stroke="var(--accent-gold)" stroke-width="0.5" />
+                    <line x1="82.895" y1="14.2" x2="50" y2="14.2" stroke="var(--accent-gold)" stroke-width="0.5" />
+                    <line x1="79.895" y1="17.2" x2="50" y2="17.2" stroke="var(--accent-gold)" stroke-width="0.5" />
+
+                </svg>
+            </a>
+
+            <!-- RIGHT COLUMN -->
+            <a href="prayers.html" class="side-card navigation-link item-right-1">
+                <div class="icon-placeholder">🙏</div>
+                <div class="card-text">PRAYERS</div>
+            </a>
+
+            <a href="notices.html" class="side-card navigation-link item-right-2">
+                <div class="icon-placeholder">📢</div>
+                <div class="card-text">NOTICES</div>
+            </a>
+
+            <a href="faqs.html" class="side-card navigation-link item-right-3">
+                <div class="icon-placeholder">❓</div>
+                <div class="card-text">FAQs</div>
+            </a>
+
+        </section>
+    </main>
+
+    <script src="home.js"></script>
+</body>
+
+</html>
