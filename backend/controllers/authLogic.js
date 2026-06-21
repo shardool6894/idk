@@ -27,7 +27,10 @@ const login = async (req, res) => {
             sameSite: 'strict',
             maxAge: 7 * 24 * 60 * 60 * 1000
         })
-        return res.status(200).send('Login successful')
+        return res.status(200).json({
+            success: true,
+            message: 'Login successful'
+        })
     }
     catch (err) {
         return res.status(400).json({
@@ -54,7 +57,10 @@ const register = async (req, res) => {
             password: hashedPassword
         }
         await userModel.create(user)
-        return res.status(200).send('User registered successfully')
+        return res.status(200).json({
+            success: true,
+            message: 'User registered successfully'
+        })
     }
     catch (err) {
         return res.status(400).json({
@@ -64,4 +70,23 @@ const register = async (req, res) => {
     }
 }
 
-module.exports = { login, register }
+const logout = (req, res) => {
+    try {
+        const user = req.user
+        //add password authentication baadme abhi aalas aa rha
+        if (user) {
+            res.cookie('token', '', {
+                httpOnly: true,
+                secure: true,
+                sameSite: 'strict',
+                expires: new Date(0)
+            });
+        }
+        return res.status(200).json({ message: 'Logged out successfully.' });
+    } 
+    catch (error) {
+        return res.status(400).json({ error: 'Internal server error.' });
+    }
+}
+
+module.exports = { login, register, logout }

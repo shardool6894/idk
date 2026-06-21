@@ -1,3 +1,4 @@
+import validator from 'https://cdn.jsdelivr.net/npm/validator@latest/+esm';
 //for phones
 function toggleMenu() {
     const sidebar = document.getElementById('sidebar');
@@ -49,16 +50,32 @@ document.addEventListener('click', async function (event) {
         window.history.pushState(null, '', targetUrl); // Update the URL bar
 
         await navigateTo(targetUrl); // Wait for the new page content to load
+        initializePage();
     }
     catch (err) {
         console.log(`error : ${err}`);
     }
 });
 
-window.addEventListener('popstate', async function () {
-    const targetUrl = window.location.pathname;
-    await navigateTo(targetUrl)
-})
+window.addEventListener('popstate', async function (event) { // 1. Added 'event' here
+    let targetUrl = 'index.html';
+
+    // 2. Check the memory first
+    if (event.state && event.state.path) {
+        targetUrl = event.state.path; // Assigned to targetUrl instead of currentPath
+    }
+    // 3. ONLY split the URL if the memory is empty!
+    else {
+        const urlParts = window.location.pathname.split('/');
+        const lastPart = urlParts[urlParts.length - 1];
+        if (lastPart) {
+            targetUrl = lastPart;
+        }
+    }
+
+    await navigateTo(targetUrl);
+    initializePage();
+});
 
 //schedule
 // --- MODAL FUNCTIONS ---
@@ -187,58 +204,43 @@ function loadLoadCalendar() {
     }
 }
 loadLoadCalendar();
-//for receiving form data
-const suggestionsForm = document.querySelector('.suggestionsForm')
-if (suggestionsForm) {
-    suggestionsForm.addEventListener('submit', async (event) => {
+//for receiving suggestion & question form data
+document.addEventListener('submit', async (event) => {
+    const form = event.target;
+
+    if (form.matches('.suggestionsForm')) {
         event.preventDefault();
         const suggestion = document.getElementById('suggestionInput').value;
-        const submitData = {
-            suggestion: suggestion
-        };
         try {
             await fetch('/api/suggestions', {
                 method: 'POST',
-                headers: {
-                    'content-type': 'application/json'
-                },
-                body: JSON.stringify(submitData)
-            })
-            document.getElementById('suggestionInput').value = ''
+                headers: { 'content-type': 'application/json' },
+                body: JSON.stringify({ suggestion })
+            });
+            document.getElementById('suggestionInput').value = '';
+        } catch (err) {
+            console.log(`error: ${err}`);
         }
-        catch (err) {
-            console.log(`error:${err}`)
-        }
-    })
+    }
 
-}
-const questionForm = document.querySelector('.questionForm')
-if (questionForm) {
-    questionForm.addEventListener('submit', async (event) => {
+    if (form.matches('.questionForm')) {
         event.preventDefault();
         const question = document.getElementById('questionInput').value;
-        const submitData = {
-            question: question
-        };
         try {
             await fetch('/api/questions', {
                 method: 'POST',
-                headers: {
-                    'content-type': 'application/json'
-                },
-                body: JSON.stringify(submitData)
-            })
-            document.getElementById('questionInput').value = ''
+                headers: { 'content-type': 'application/json' },
+                body: JSON.stringify({ question })
+            });
+            document.getElementById('questionInput').value = '';
+        } catch (err) {
+            console.log(`error: ${err}`);
         }
-        catch (err) {
-            console.log(`error : ${err}`)
-        }
-    })
-}
-
+    }
+});
 /* --- AUTHENTICATION (LOGIN/REGISTER) BACKEND LOGIC --- */
 
-document.addEventListener('DOMContentLoaded', () => {
+function authLogic() {
     const authForm = document.querySelector('.auth-form');
 
     if (authForm) {
@@ -266,7 +268,16 @@ document.addEventListener('DOMContentLoaded', () => {
                         resetButton(submitBtn, originalText);
                         return;
                     }
-
+                    if (!validator.isEmail(email)) {
+                        alert("invalid email format")
+                        resetButton(submitBtn, originalText);
+                        return;
+                    }
+                    if (!validator.isStrongPassword(password)) {
+                        alert("weak password")
+                        resetButton(submitBtn, originalText);
+                        return;
+                    }
                     // 1. Send data to your Register endpoint
                     const response = await fetch('/api/register', { // <-- REPLACE with your actual backend URL
                         method: 'POST',
@@ -281,7 +292,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     // 2. Handle the server's response
                     if (response.ok) {
                         alert("Registration successful! Please log in.");
-                        window.location.href = 'login.html';
+                        window.location.replace('login.html');
                     } else {
                         // Display error from the server (e.g., "Email already exists")
                         alert(data.message || "Registration failed. Please try again.");
@@ -305,7 +316,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (response.ok) {
                         // Usually, you'd save a token here, e.g., localStorage.setItem('token', data.token);
                         alert("Login successful!");
-                        window.location.href = 'index.html';
+                        window.location.replace('index.html');
                     } else {
                         // Display error from server (e.g., "Invalid credentials")
                         alert(data.message || "Login failed. Please check your credentials.");
@@ -325,4 +336,111 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.style.opacity = '1';
         btn.style.pointerEvents = 'auto';
     }
+}
+
+/* --- PROFILE FETCH & LOGOUT LOGIC --- */
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    // 1. Fetch Profile Data (Only runs if the profile-box is on the screen)
+    const profileBox = document.querySelector('.profile-box');
+
+    if (profileBox) {
+        loadProfileData();
+    }
+
+    // 2. Logout Event Listener
+    const logoutBtn = document.getElementById('logout-btn');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', async () => {
+            try {
+                // Assuming you create a /api/logout route that clears the cookie
+                const response = await fetch('/api/logout', { method: 'POST' });
+
+                if (response.ok) {
+                    window.location.replace('login.html'); // Kick them back to login
+                } else {
+                    alert("Trouble logging out. Please try again.");
+                }
+            } catch (error) {
+                console.error("Logout Error:", error);
+            }
+        });
+    }
 });
+
+// Helper function to fetch and display the data
+async function loadProfileData() {
+    try {
+        // REPLACE '/api/profile' with your exact backend viewProfile route
+        const response = await fetch('/api/profile', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'same-origin'
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            // Assuming your backend sends back the user object 
+            // e.g., res.status(200).json({ user: req.user })
+            const user = data.user || data;
+
+            // Update HTML elements
+            // We use optional chaining (?) in case your schema doesn't have a name yet
+            const displayName = "Devotee";
+            document.getElementById('profile-email').innerText = user.email;
+
+            // Format the MongoDB timestamp (createdAt) nicely
+            if (user.createdAt) {
+                const joinDate = new Date(user.createdAt).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+                document.getElementById('profile-date').innerText = joinDate;
+            } else {
+                document.getElementById('profile-date').innerText = "Unknown";
+            }
+
+            // Update the Avatar initial
+            document.getElementById('profile-initials').innerText = displayName.charAt(0).toUpperCase();
+
+        }
+        else {
+            // If the token is expired or invalid, the backend will return an error.
+            // Redirect them to login.
+            console.error("Failed to load profile:", data.message);
+            window.location.replace('login.html');
+        }
+    } catch (error) {
+        console.error("Network error fetching profile:", error);
+        document.getElementById('profile-name').innerText = "Error Loading Data";
+        document.getElementById('profile-email').innerText = "Please check your connection";
+    }
+}
+
+function initializePage() {
+    const profileBox = document.querySelector('.profile-box');
+    if (profileBox) {
+        loadProfileData();
+    }
+    const authForm = document.querySelector('.auth-form');
+    if (authForm) {
+        authLogic();
+    }
+}
+
+// Re-check auth if the browser restores this page from bfcache (e.g. via Back/Forward)
+window.addEventListener('pageshow', (event) => {
+    if (event.persisted && document.querySelector('.profile-box')) {
+        loadProfileData();
+    }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    initializePage();
+});
+

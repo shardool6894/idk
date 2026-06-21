@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const validator = require('validator')
-const userSchema = new mongoose.Schema({
+const questionSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
@@ -12,15 +12,10 @@ const userSchema = new mongoose.Schema({
             }
         }
     },
-    password: {
-        type: String,
-        required: true,
-        validate(value) {
-            if (!validator.isStrongPassword(value)) {
-                throw new Error('Weak password')
-            }
-        }
-    }    
+    question : {
+        type : String,
+        required : true
+    }
 }, { timestamps: true })
-const userModel = mongoose.model('users', userSchema)
-module.exports = userModel;
+const questionModel = mongoose.model('questions', questionSchema)
+module.exports = questionModel;
