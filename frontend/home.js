@@ -207,7 +207,9 @@ loadLoadCalendar();
 //for receiving suggestion & question form data
 document.addEventListener('submit', async (event) => {
     const form = event.target;
-
+    if(!form){
+        alert('please enter data')
+    }
     if (form.matches('.suggestionsForm')) {
         event.preventDefault();
         const suggestion = document.getElementById('suggestionInput').value;
@@ -217,6 +219,7 @@ document.addEventListener('submit', async (event) => {
                 headers: { 'content-type': 'application/json' },
                 body: JSON.stringify({ suggestion })
             });
+            alert('suggestion submitted')
             document.getElementById('suggestionInput').value = '';
         } catch (err) {
             console.log(`error: ${err}`);
@@ -232,6 +235,7 @@ document.addEventListener('submit', async (event) => {
                 headers: { 'content-type': 'application/json' },
                 body: JSON.stringify({ question })
             });
+            alert('question submitted')
             document.getElementById('questionInput').value = '';
         } catch (err) {
             console.log(`error: ${err}`);

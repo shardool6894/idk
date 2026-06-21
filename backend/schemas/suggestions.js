@@ -4,13 +4,7 @@ const suggestionSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
-        lowercase: true,
-        unique: true,
-        validate(value) {
-            if (!validator.isEmail(value)) {
-                throw new Error('invalid email')
-            }
-        }
+        lowercase: true
     },
     suggestion : {
         type : String,
@@ -18,4 +12,4 @@ const suggestionSchema = new mongoose.Schema({
     }
 }, { timestamps: true })
 const suggestionModel = mongoose.model('suggestions', suggestionSchema)
-module.exports = suggestionModel;
+module.exports = {suggestionModel};

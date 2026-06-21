@@ -4,13 +4,7 @@ const questionSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
-        lowercase: true,
-        unique: true,
-        validate(value) {
-            if (!validator.isEmail(value)) {
-                throw new Error('invalid email')
-            }
-        }
+        lowercase: true
     },
     question : {
         type : String,
@@ -18,4 +12,4 @@ const questionSchema = new mongoose.Schema({
     }
 }, { timestamps: true })
 const questionModel = mongoose.model('questions', questionSchema)
-module.exports = questionModel;
+module.exports = {questionModel};
