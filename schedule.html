@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ram Bhakt Mandal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Optional: Adding a sans-serif font for the small description text -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="home.css">
+</head>
+
+<body class="schedule-page">
+
+    <header>
+        <div class="header-title">RAM BHAKT MANDAL</div>
+
+        <!-- Desktop Navigation -->
+        <nav class="desktop-nav">
+            <ul>
+                <li><a href="index.html" class="active navigation-link">Home</a></li>
+                <li><a href="about.html" class="navigation-link">About</a></li>
+                <li><a href="gallery.html" class="navigation-link">Gallery</a></li>
+                <li><a href="prayers.html" class="navigation-link">Prayers</a></li>
+                <li><a href="donate.html" class="navigation-link">Donate</a></li>
+                <li><a href="suggestions.html" class="navigation-link">suggestions</a></li>
+                <li><a href="faqs.html" class="navigation-link">FAQs</a></li>
+                <li><a href="profile.html" class="navigation-link">👤</a></li>
+            </ul>
+        </nav>
+
+        <button class="menu-btn" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </header>
+
+    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+    <!-- Mobile Sidebar -->
+    <nav class="sidebar" id="sidebar">
+        <button class="close-btn" onclick="toggleMenu()">&times;</button>
+        <ul>
+            <li><a href="index.html" class="navigation-link">Home</a></li>
+            <li><a href="about.html" class="navigation-link">About</a></li>
+            <li><a href="gallery.html" class="navigation-link">Gallery & Media</a></li>
+            <li><a href="prayers.html" class="navigation-link">Prayers</a></li>
+            <li><a href="donate.html" class="navigation-link">Donate</a></li>
+            <li><a href="suggestions.html" class="navigation-link">suggestions</a></li>
+            <li><a href="faqs.html" class="navigation-link">FAQs</a></li>
+            <li><a href="profile.html" class="navigation-link">profile</a></li>
+        </ul>
+    </nav>
+
+    <main id="content-area">
+        <!-- <h1 class="page-title">Upcoming Events Schedule</h1> -->
+
+        <div class="calendar-wrapper">
+            <div class="calendar-header">
+                <div class="calendar-selects">
+                    <select id="monthSelect" class="cal-dropdown">
+                        <option value="1">January</option>
+                        <option value="2">February</option>
+                        <option value="3">March</option>
+                        <option value="4">April</option>
+                        <option value="5">May</option>
+                        <option value="6">June</option>
+                        <option value="7">July</option>
+                        <option value="8">August</option>
+                        <option value="9">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                    </select>
+
+                    <select id="yearSelect" class="cal-dropdown">
+                        
+                    </select>
+                </div>
+            </div>
+
+            <div class="calendar-scroll">
+                <div class="calendar-grid" id="calendarGrid">
+                    <div class="cal-weekday">Sun</div>
+                    <div class="cal-weekday">Mon</div>
+                    <div class="cal-weekday">Tue</div>
+                    <div class="cal-weekday">Wed</div>
+                    <div class="cal-weekday">Thu</div>
+                    <div class="cal-weekday">Fri</div>
+                    <div class="cal-weekday">Sat</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script type="module" src="home.js"></script>
+</body>
+
+</html>
