@@ -311,6 +311,7 @@ header {
     box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.8), 0 10px 20px var(--shadow-soft);
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
     overflow: hidden;
+    flex-shrink: 0;
     /* Ensures the background SVG stays within the rounded corners */
 }
 
@@ -882,24 +883,27 @@ header {
     box-shadow: inset 2px 2px 5px rgba(180, 160, 140, 0.3), 
                 inset -2px -2px 5px rgba(255, 255, 255, 0.9);
 }
+
 /* --- FAQ & QUESTION LAYOUT CONTAINER --- */
 .faq-page-main {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start; /* Keeps them at their natural height instead of stretching */
-    gap: 40px; /* Creates the space between the two boxes */
-    max-width: 1200px; /* Controls the total width of both boxes combined */
-    margin: 40px auto; /* Centers the entire container on the page */
+    align-items: flex-start; 
+    gap: 40px; 
+    max-width: 1200px; 
+    margin: 40px auto; 
     padding: 0 20px;
+    box-sizing: border-box; /* Ensures the 20px padding doesn't break the max-width */
 }
 
 /* --- THE NEUMORPHIC BOXES --- */
-/* We combine them here since they share the same base styling */
 .question-box, 
 .faq-box {
-    flex: 1; /* This forces both boxes to take up exactly 50% of the space */
+    flex: 1 1 0; /* The '1 1 0' strictly forces an equal split */
+    min-width: 0; /* Prevents long text from forcing the box to stretch */
+    box-sizing: border-box; /* Keeps padding inside the box width */
+    
     padding: 40px 30px;
-
     background-color: var(--bg-cream, #ffffff);
     border: 2px solid var(--border-light, #e0e0e0);
     border-radius: 12px;
@@ -916,6 +920,7 @@ header {
     color: var(--text-brown);
     text-align: center;
     line-height: 1.9;
+    overflow-wrap: break-word; /* Forces long unbroken words to wrap securely */
     
     transition: all 0.3s ease;
 }
@@ -948,12 +953,14 @@ header {
 .question-box input[type="text"],
 .question-box textarea {
     width: 100%;
+    box-sizing: border-box; /* STOPS INPUTS FROM BREAKING OUT OF THE BOX */
     padding: 15px 20px;
+    
     font-family: 'Open Sans', sans-serif;
     font-size: 1rem;
     color: var(--text-brown);
     
-    /* Neumorphic Inset Shadow for a sunken look */
+    /* Neumorphic Inset Shadow */
     background: #faf7f2; 
     border: 1px solid rgba(180, 160, 140, 0.2);
     border-radius: 10px;
@@ -962,6 +969,8 @@ header {
                 
     transition: all 0.3s ease;
     outline: none;
+    /* Prevents users from dragging textareas horizontally and breaking the layout */
+    resize: vertical; 
 }
 
 .question-box input[type="text"]:focus,
@@ -978,6 +987,7 @@ header {
     border: 1px solid rgba(255, 255, 255, 0.8);
     border-radius: 30px; 
     padding: 12px 40px;
+    box-sizing: border-box;
     
     font-family: 'Cinzel', serif;
     font-weight: 700;
@@ -1007,11 +1017,18 @@ header {
 /* --- MOBILE RESPONSIVENESS --- */
 @media (max-width: 768px) {
     .faq-page-main {
-        flex-direction: column; /* Stacks the boxes on top of each other on phones */
+        flex-direction: column;
         gap: 30px;
         margin: 20px auto;
     }
+    
+    .question-box, 
+    .faq-box {
+        width: 100%; /* Ensures they take full width when stacked */
+        flex: auto;
+    }
 }
+
 /* --- AUTHENTICATION PAGES (LOGIN / REGISTER) --- */
 
 /* Centers the auth box perfectly on the screen */

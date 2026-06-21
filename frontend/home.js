@@ -25,8 +25,9 @@ async function navigateTo(targetUrl) {
         const newHtmlContent = await response.text();
         const parser = new DOMParser();
         const tempDoc = parser.parseFromString(newHtmlContent, 'text/html');
-        const contentToBeReplaced = tempDoc.getElementById('content-area').innerHTML
-        contentArea.innerHTML = contentToBeReplaced;
+        const contentToBeReplaced = tempDoc.getElementById('content-area')
+        contentArea.className = contentToBeReplaced.className;
+        contentArea.innerHTML = contentToBeReplaced.innerHTML;
         loadLoadCalendar()
     }
     catch (err) {
@@ -34,19 +35,24 @@ async function navigateTo(targetUrl) {
     }
 }
 
-links.forEach(link => {
-    link.addEventListener('click', async function (event) {
-        try {
-            event.preventDefault();
-            const targetUrl = this.getAttribute('href');
-            window.history.pushState(null, '', targetUrl);
-            await navigateTo(targetUrl)
-            // Listen for the user clicking the Back or Forward buttons
-        }
-        catch (err) {
-            console.log(`error : ${err}`)
-        }
-    });
+// Listen for clicks anywhere on the document
+document.addEventListener('click', async function (event) {
+    // Check if the clicked element (or its parent) has the class '.navigation-link'
+    const link = event.target.closest('.navigation-link');
+
+    // If it's not a navigation link, ignore the click and do nothing
+    if (!link) return;
+
+    try {
+        event.preventDefault(); // Stop the browser from doing a hard reload
+        const targetUrl = link.getAttribute('href');
+        window.history.pushState(null, '', targetUrl); // Update the URL bar
+
+        await navigateTo(targetUrl); // Wait for the new page content to load
+    }
+    catch (err) {
+        console.log(`error : ${err}`);
+    }
 });
 
 window.addEventListener('popstate', async function () {
